@@ -1,61 +1,169 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Laravel QR Code Generator
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A customizable QR code generator built with **Laravel**, using the [Simple QrCode](https://github.com/SimpleSoftwareIO/simple-qrcode) package.
 
-## About Laravel
+This project allows you to generate QR codes with customizable size, style, color, background, encoding, margin, and even gradients. It also supports transparent backgrounds and uses **ImageMagick** and **spatie/color** for advanced styling.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+🎥 **Watch the full project demo:**  
+[![Watch the video](https://img.youtube.com/vi/V64xv9ZjW7A/0.jpg)](https://www.youtube.com/watch?v=V64xv9ZjW7A)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🌟 Features
 
-## Learning Laravel
+- Generate QR codes from any text
+- PNG, SVG, and EPS output
+- Control size, color, background, margin
+- Gradient and eye style customization
+- Transparent backgrounds
+- ImageMagick and Spatie color support
+- Easy to integrate and extend
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 📦 Requirements
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP >= 8.0  
+- Composer  
+- Laravel 10+  
+- ImageMagick installed  
+- imagick PHP extension  
+- Web server (Apache, Nginx, or Laravel's built-in server)
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ⚙️ Installation & Setup (Step-by-Step)
 
-### Premium Partners
+### 1️⃣ Clone the Repository
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
 
-## Contributing
+### 2️⃣ Install PHP Dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+composer install
+```
 
-## Code of Conduct
+### 3️⃣ Create `.env` File and Generate App Key
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+### 4️⃣ Install Simple QR Code Package
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+composer require simplesoftwareio/simple-qrcode
+```
 
-## License
+### 5️⃣ Install Spatie Color Package
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+composer require spatie/color
+```
+
+### 6️⃣ Install ImageMagick
+
+- 📥 Download ImageMagick for Windows:  
+  https://imagemagick.org/script/download.php#windows
+
+> Make sure to check **"Install legacy utilities (e.g., convert)"** during installation.
+
+---
+
+## 🧩 Enable Imagick PHP Extension
+
+- 📥 Download the proper `php_imagick.dll` from:  
+  https://pecl.php.net/package/imagick/3.8.0/windows
+
+- Copy the `.dll` file to your `ext` directory (e.g., `C:\xampp\php\ext\`)
+
+- Add this line to your `php.ini`:
+
+```ini
+extension=imagick
+```
+
+- ✅ Restart your server (Apache or Laravel's `php artisan serve`)
+
+---
+
+## 🖥️ Running the Application
+
+```bash
+php artisan serve
+```
+
+Then open your browser and go to:
+
+```
+http://localhost:8000/qr
+```
+
+You’ll see the QR Code Generator form.
+
+---
+
+## 🧪 Sample QR Code Generation (Controller)
+
+```php
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+public function generate(Request $request)
+{
+    $qr = QrCode::format('png')
+                ->size(300)
+                ->color(0, 0, 0)
+                ->backgroundColor(255, 255, 255)
+                ->generate($request->input('text'));
+
+    return response($qr)->header('Content-Type', 'image/png');
+}
+```
+
+---
+
+## 📂 File Structure
+
+| File | Purpose |
+|------|---------|
+| `routes/web.php` | Contains the QR route |
+| `app/Http/Controllers/QrController.php` | Logic for generating QR codes |
+| `resources/views/qr.blade.php` | User interface for creating QR codes |
+
+---
+
+## 📺 Project Demo Video
+
+[![QR Code Generator Demo](https://img.youtube.com/vi/V64xv9ZjW7A/0.jpg)](https://www.youtube.com/watch?v=V64xv9ZjW7A)  
+▶️ [Click here to watch the full demo](https://www.youtube.com/watch?v=V64xv9ZjW7A)
+
+---
+
+## 👤 About the Developer
+
+Developed by **Nada Al-Eaqrab**  
+💡 Software engineer, educator, and content creator  
+🎬 YouTube: [Nada AlEaqrab](https://www.youtube.com/@NadaAlEaqrab)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 📌 Notes
+
+- You can customize the QR output by adjusting:
+  - Format: `png`, `svg`, `eps`
+  - Size: `->size(300)`
+  - Colors: `->color(r, g, b)`
+  - Background: `->backgroundColor(r, g, b)`
+  - Encoding: `->encoding('UTF-8')`, etc.
+- For more QR options and advanced usage, check the [Simple QrCode Documentation](https://github.com/SimpleSoftwareIO/simple-qrcode/blob/develop/docs/en/README.md).
